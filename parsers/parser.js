@@ -2,7 +2,8 @@ import path from 'path';
 import yaml from 'js-yaml';
 import fs from 'fs';
 
-const readFile = (filename) => fs.readFileSync(filename, 'utf8');
+const makeTheWay = (filename) => path.resolve('__fixtures__', filename);
+const readFile = (filename) => fs.readFileSync(makeTheWay(filename), 'utf8');
 const startToParse = (filename) => {
   const fileType = path.extname(filename);
   switch (fileType) {
