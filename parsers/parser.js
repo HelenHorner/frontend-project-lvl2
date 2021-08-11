@@ -9,8 +9,8 @@ const startToParse = (filename) => {
   switch (fileType) {
     case '.json':
       return JSON.parse(readFile(filename));
-    case '.yaml':
-      return yaml.load(filename);
+    case '.yml':
+      return yaml.load(readFile(filename));
     default:
       throw new Error('there is no this type of file to parse');
   }
