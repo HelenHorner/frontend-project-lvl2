@@ -1,4 +1,4 @@
-const buildTree = (diff) => {
+const showTree = (diff) => {
   const iter = (item) => {
     const value = Object.keys(item)[0];
     switch (item.type) {
@@ -23,4 +23,4 @@ const buildTree = (diff) => {
   ].join('\n');
 };
 
-export default buildTree;
+export default showTree;

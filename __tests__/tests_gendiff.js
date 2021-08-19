@@ -11,9 +11,9 @@ const expectValue = `{
 }`;
 
 test('gendiff flat files', () => {
-  expect(genDiff('flat_file1.json'), ('flat_file2.json')).toEqual(expectValue);
+  expect(genDiff('flat_file1.json', 'flat_file2.json')).toEqual(expectValue);
 });
 
 test('gendiff flat files', () => {
-  expect(genDiff('flat_file1.yaml'), ('flat_file2.yaml')).toEqual(expectValue);
+  expect(genDiff('flat_file1.yaml', 'flat_file2.yaml')).toEqual(expectValue);
 });
