@@ -8,8 +8,6 @@ const makeTheWay = (filename) => path.resolve(process.cwd(), filename);
 const readFile = (filename) => fs.readFileSync(makeTheWay(filename), 'utf8');
 
 const genDiff = (filepath1, filepath2) => {
-  // path.resolve(process.cwd(), filepath)
-
   const file1 = readFile(makeTheWay(filepath1));
   const file2 = readFile(makeTheWay(filepath2));
   const parsedFile1 = startToParse(file1, path.extname(filepath1).replace('.', ''));

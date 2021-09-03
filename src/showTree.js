@@ -2,6 +2,8 @@ const showTree = (diff) => {
   const iter = (item) => {
     const value = Object.keys(item)[0];
     switch (item.type) {
+      case 'nested':
+        return [`${value}: ${iter(item[value])}`];
       case 'added':
         return [`+ ${value}: ${item[value]}`];
       case 'deleted':
@@ -14,8 +16,8 @@ const showTree = (diff) => {
         throw new Error('Error AST');
     }
   };
-
-  const strARR = diff.map((item) => iter(item));
+  const { children } = diff;
+  const strARR = children.map((item) => iter(item));
   return [
     '{',
     ...strARR,
