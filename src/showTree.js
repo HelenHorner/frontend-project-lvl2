@@ -1,17 +1,16 @@
 const showTree = (diff) => {
   const iter = (item) => {
-    const value = Object.keys(item)[0];
     switch (item.type) {
       case 'nested':
-        return [`${value}: ${iter(item[value])}`];
+        return [`${item.key}: ${showTree(item.children)}`];
       case 'added':
-        return [`+ ${value}: ${item[value]}`];
+        return [`+ ${item.key}: ${item.value}`];
       case 'deleted':
-        return [`- ${value}: ${item[value]}`];
+        return [`- ${item.key}: ${item.value}`];
       case 'changed':
-        return [[`- ${value}: ${item[value]}`], [`+ ${value}: ${item.newValue}`]].join('\n');
+        return [[`- ${item.key}: ${item.value}`], [`+ ${item.key}: ${item.newValue}`]].join('\n');
       case 'unchanged':
-        return [`  ${value}: ${item[value]}`];
+        return [`  ${item.key}: ${item.value}`];
       default:
         throw new Error('Error AST');
     }

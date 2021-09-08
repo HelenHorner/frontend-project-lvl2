@@ -12,19 +12,19 @@ const buildDiff = (file1, file2) => {
       return { key, value: file1[key], type: 'deleted' };
     }
     if (_.isPlainObject(file1[key]) && _.isPlainObject(file2[key])) {
-      return { key, value: buildDiff(file1[key], file2[key]), type: 'nested' };
+      return {
+        key, value: null, children: buildDiff(file1[key], file2[key]), type: 'nested',
+      };
     }
     if (!_.isEqual(file1[key], file2[key])) {
       return {
         key, value: file1[key], newValue: file2[key], type: 'changed',
       };
-    } else {
-      return { key, value: file1[key], type: 'unchanged' };
-    }
+    } return { key, value: file1[key], type: 'unchanged' };
   };
 
   const diff = keys.map((key) => iter(key));
-  console.log(diff);
+  // console.log(diff);
   return { type: 'root', children: diff };
 };
 
