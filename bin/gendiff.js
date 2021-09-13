@@ -11,5 +11,5 @@ gendiff
     genDiff(firstConfig, secondConfig);
   })
   .option('-v, --version', 'output usage information')
-  .option('-f, --format [type]', 'Output format')
+  .option('-f, --format <type>', 'Output format', 'stylish')
   .parse(process.argv);
