@@ -2,7 +2,7 @@ import stylish from '../formatters/stylish.js';
 import plain from '../formatters/plain.js';
 import json from '../formatters/json.js';
 
-const showTree = (diff) => plain(diff);
+const showTree = (diff) => stylish(diff);
 
 // const iter = (item) => {
 //   switch (item.type) {
