@@ -1,42 +1,48 @@
-const showTree = (diff) => {
-  const iter = (item, depth) => {
-    const spacesCount = 1;
+const makeLine = (val, depth) => {
+  if (val === null) {
+    return null;
+  }
+  if (typeof val === 'object') {
+    const entries = Object.entries(val);
+    const arr = entries.flat();
+    const [key, value] = arr;
+    return ['{', `${' '.repeat(depth + 5)}${key}: ${makeLine(value, depth + 3)}`, `${' '.repeat(depth + 5)}}`].join('\n');
+  }
+  return val.toString();
+};
+
+const stylish = (diff, depth = 2) => {
+  const iter = (item) => {
     const replacer = ' ';
-    const indentSize = depth * spacesCount;
-    const currentIndent = replacer.repeat(indentSize);
-    const bracketIndent = replacer.repeat(indentSize - spacesCount);
+    const currentIndent = replacer.repeat(depth);
+    let result = '';
     switch (item.type) {
       case 'nested':
-        return [`${item.key}: ${showTree(item.children)}`];
+        result = [`${currentIndent} ${item.key}: ${stylish(item.children, depth + 4)}`];
+        break;
       case 'added':
-        return [`${currentIndent}+ ${item.key}: ${item.value}`];
+        result = [`${currentIndent}+ ${item.key}: ${makeLine(item.value, depth)}`];
+        break;
       case 'deleted':
-        return [`${currentIndent}- ${item.key}: ${item.value}`];
+        result = [`${currentIndent}- ${item.key}: ${makeLine(item.value, depth)}`];
+        break;
       case 'changed':
-        return [[`${currentIndent}- ${item.key}: ${item.value}`], [`${currentIndent}+ ${item.key}: ${item.newValue}`]].join('\n');
+        result = [[`${currentIndent}- ${item.key}: ${makeLine(item.value, depth)}`], [`${currentIndent}+ ${item.key}: ${makeLine(item.newValue, depth)}`]].join('\n');
+        break;
       case 'unchanged':
-        return [`${currentIndent}  ${item.key}: ${item.value}`];
+        result = [`${currentIndent}  ${item.key}: ${makeLine(item.value, depth)}`];
+        break;
       default:
         throw new Error('Error AST');
     }
+    return result;
   };
-};
+  const { children } = diff;
+  const lines = children.map((line) => iter(line, depth));
 
-const stylish = (currentValue, depth) => {
-  if (typeof currentValue !== 'object') {
-    return currentValue;
-  }
-  const spacesCount = 1;
-  const replacer = ' ';
-  const indentSize = depth * spacesCount;
-  const currentIndent = replacer.repeat(indentSize);
-  const bracketIndent = replacer.repeat(indentSize - spacesCount);
-  const lines = currentValue.map((line) => `${currentIndent} ${stylish(line, depth + 1)}`);
-
-  return [
-    '{',
+  return ['{',
     ...lines,
-    `${bracketIndent}}`,
+    `${' '.repeat(depth)}}`,
   ].join('\n');
 };
 
