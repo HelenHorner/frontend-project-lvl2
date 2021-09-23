@@ -8,8 +8,10 @@ const showTree = (format, diff) => {
       return plain(diff);
     case 'json':
       return json(diff);
-    default:
+    case 'stylish':
       return stylish(diff);
+    default:
+      throw new Error('there is no this type of format');
   }
 };
 
