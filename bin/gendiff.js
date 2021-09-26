@@ -10,6 +10,6 @@ program
   .option('-v, --version', 'output usage information')
   .option('-f, --format [type]', 'Output format', 'stylish')
   .action((firstConfig, secondConfig) => {
-    genDiff(firstConfig, secondConfig, program.opts().format);
+    console.log(genDiff(firstConfig, secondConfig, program.opts().format));
   })
   .parse(process.argv);
