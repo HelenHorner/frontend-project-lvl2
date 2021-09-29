@@ -11,14 +11,14 @@ const makeLine = (val, depth) => {
   return val.toString();
 };
 
-const stylish = (diff, depth = 2) => {
+const stylish = (diff, depth = 3) => {
   const iter = (item) => {
     const replacer = ' ';
     const currentIndent = replacer.repeat(depth);
     let result = '';
     switch (item.type) {
       case 'nested':
-        result = [`${currentIndent} ${item.key}: ${stylish(item.children, depth + 4)}`];
+        result = [`${currentIndent} ${item.key}: ${stylish(item.children, depth + 5)}`];
         break;
       case 'added':
         result = [`${currentIndent}+ ${item.key}: ${makeLine(item.value, depth)}`];
