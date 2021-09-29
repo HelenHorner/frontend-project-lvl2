@@ -6,7 +6,7 @@ const makeLine = (val, depth) => {
     const entries = Object.entries(val);
     const arr = entries.flat();
     const [key, value] = arr;
-    return ['{', `${' '.repeat(depth + 6)}${key}: ${makeLine(value, depth + 3)}`, `${' '.repeat(depth + 5)}}`].join('\n');
+    return ['{', `${' '.repeat(depth + 6)}${key}: ${makeLine(value, depth + 3)}`, `${' '.repeat(depth + 2)}}`].join('\n');
   }
   return val.toString();
 };
