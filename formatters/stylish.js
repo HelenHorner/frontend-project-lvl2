@@ -18,7 +18,7 @@ const stylish = (diff, depth = 3) => {
     let result = '';
     switch (item.type) {
       case 'nested':
-        result = [`${currentIndent} ${item.key}: ${stylish(item.children, depth + 5)}`];
+        result = [`${currentIndent} ${item.key}: ${stylish(item.children, depth + 3)}`];
         break;
       case 'added':
         result = [`${currentIndent}+ ${item.key}: ${makeLine(item.value, depth)}`];

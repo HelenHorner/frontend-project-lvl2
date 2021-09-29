@@ -61,13 +61,13 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
-test('gendiff json files', () => {
-  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toEqual(expectValue);
-});
+// test('gendiff json files', () => {
+//   expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toEqual(expectValue);
+// });
 
-test('gendiff yaml files', () => {
-  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml')).toEqual(expectValue);
-});
+// test('gendiff yaml files', () => {
+//   expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml')).toEqual(expectValue);
+// });
 
 test('gendiff json files, plain', () => {
   expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(expectValuePlain);
