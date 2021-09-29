@@ -1,7 +1,5 @@
 /* eslint no-underscore-dangle: 0 */
 import { test, expect } from '@jest/globals';
-// import { fileURLToPath } from 'url';
-// import { dirname, path } from 'path';
 import genDiff from '../src/index.js';
 
 // const __filename = fileURLToPath(import.meta.url);
