@@ -10,44 +10,48 @@ import genDiff from '../src/index.js';
 
 const expectValue = `{
     common: {
-        + follow: false
-          setting1: Value 1
-        - setting2: 200
-        - setting3: true
-        + setting3: null
-        + setting4: blah blah
-        + setting5: {
-             key5: value5
-             }
-         setting6: {
-              doge: {
-                  - wow: 
-                  + wow: so much
-                  }
-               key: value
-             + ops: vops
-             }
+      + follow: false
+        setting1: Value 1
+      - setting2: 200
+      - setting3: true
+      + setting3: null
+      + setting4: blah blah
+      + setting5: {
+            key5: value5
         }
+        setting6: {
+            doge: {
+              - wow: 
+              + wow: so much
+            }
+            key: value
+          + ops: vops
+        }
+    }
     group1: {
-        - baz: bas
-        + baz: bars
-          foo: bar
-        - nest: {
-             key: value
-             }
-        + nest: str
+      - baz: bas
+      + baz: bars
+        foo: bar
+      - nest: {
+            key: value
         }
-   - group2: {
+      + nest: str
+    }
+  - group2: {
         abc: 12345
-        }
-   + group3: {
         deep: {
-           id: {
-              number: 45
-              }
-           }
+            id: 45
         }
-   }`;
+    }
+  + group3: {
+        deep: {
+            id: {
+                number: 45
+            }
+        }
+        fee: 100500
+    }
+}`;
 
 const expectValuePlain = `Property 'common.follow' was added with value: 'false'
 Property 'common.setting2' was removed
@@ -61,13 +65,13 @@ Property 'group1.nest' was updated. From [complex value] to 'str'
 Property 'group2' was removed
 Property 'group3' was added with value: [complex value]`;
 
-// test('gendiff json files', () => {
-//   expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toEqual(expectValue);
-// });
+test('gendiff json files', () => {
+  expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json')).toEqual(expectValue);
+});
 
-// test('gendiff yaml files', () => {
-//   expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml')).toEqual(expectValue);
-// });
+test('gendiff yaml files', () => {
+  expect(genDiff('__fixtures__/file1.yml', '__fixtures__/file2.yml')).toEqual(expectValue);
+});
 
 test('gendiff json files, plain', () => {
   expect(genDiff('__fixtures__/file1.json', '__fixtures__/file2.json', 'plain')).toBe(expectValuePlain);
