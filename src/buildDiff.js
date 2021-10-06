@@ -4,8 +4,7 @@ const buildDiff = (file1, file2) => {
   const keys1 = Object.keys(file1);
   const keys2 = Object.keys(file2);
   const unionKeys = _.union(keys1, keys2);
-  const newKeys = [...unionKeys];
-  const keys = newKeys.sort();
+  const keys = _.sortBy(unionKeys);
   const iter = (key) => {
     if (!_.has(file1, key)) {
       return { key, value: file2[key], type: 'added' };
