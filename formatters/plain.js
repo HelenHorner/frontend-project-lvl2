@@ -1,6 +1,7 @@
 import _ from 'lodash';
 
-const complexValue = (value) => `${_.isPlainObject(value) ? '[complex value]' : `'${value}'`}`;
+const toString = (value) => (typeof value === 'string' ? `'${value}'` : `${value}`);
+const complexValue = (value) => `${_.isPlainObject(value) ? '[complex value]' : `${toString(value)}`}`;
 
 const makePlain = (diff, wayCounter) => {
   const iter = (item) => {
