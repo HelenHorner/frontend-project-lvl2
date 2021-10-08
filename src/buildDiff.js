@@ -1,31 +1,30 @@
 import _ from 'lodash';
 
-const buildDiff = (file1, file2) => {
-  const keys1 = Object.keys(file1);
-  const keys2 = Object.keys(file2);
+const buildDiff = (filePath1, filePath2) => {
+  const keys1 = Object.keys(filePath1);
+  const keys2 = Object.keys(filePath2);
   const unionKeys = _.union(keys1, keys2);
-  const keys = _.sortBy(unionKeys);
+  const sortedKeys = _.sortBy(unionKeys);
   const iter = (key) => {
-    if (!_.has(file1, key)) {
-      return { key, value: file2[key], type: 'added' };
+    if (!_.has(filePath1, key)) {
+      return { key, value: filePath2[key], type: 'added' };
     }
-    if (!_.has(file2, key)) {
-      return { key, value: file1[key], type: 'deleted' };
+    if (!_.has(filePath2, key)) {
+      return { key, value: filePath1[key], type: 'deleted' };
     }
-    if (_.isPlainObject(file1[key]) && _.isPlainObject(file2[key])) {
+    if (_.isPlainObject(filePath1[key]) && _.isPlainObject(filePath2[key])) {
       return {
-        key, value: null, children: buildDiff(file1[key], file2[key]), type: 'nested',
+        key, value: null, children: buildDiff(filePath1[key], filePath2[key]), type: 'nested',
       };
     }
-    if (!_.isEqual(file1[key], file2[key])) {
+    if (!_.isEqual(filePath1[key], filePath2[key])) {
       return {
-        key, value: file1[key], newValue: file2[key], type: 'changed',
+        key, oldValue: filePath1[key], newValue: filePath2[key], type: 'changed',
       };
-    } return { key, value: file1[key], type: 'unchanged' };
+    } return { key, value: filePath1[key], type: 'unchanged' };
   };
 
-  const diff = keys.map((key) => iter(key));
-  // console.log(diff);
+  const diff = sortedKeys.map((key) => iter(key));
   return { type: 'root', children: diff };
 };
 

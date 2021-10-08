@@ -1,8 +1,8 @@
-import stylish from '../formatters/stylish.js';
-import plain from '../formatters/plain.js';
-import json from '../formatters/json.js';
+import stylish from './stylish';
+import plain from './plain.js';
+import json from './json.js';
 
-const showTree = (format, diff) => {
+const formatTree = (diff, format) => {
   switch (format) {
     case 'plain':
       return plain(diff);
@@ -15,4 +15,4 @@ const showTree = (format, diff) => {
   }
 };
 
-export default showTree;
+export default formatTree;
