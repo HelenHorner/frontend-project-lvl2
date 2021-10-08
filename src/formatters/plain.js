@@ -13,7 +13,7 @@ const makePlain = (diff, wayCounter) => {
       case 'deleted':
         return [`Property '${[...wayCounter, item.key].join('.')}' was removed`];
       case 'changed':
-        return [`Property '${[...wayCounter, item.key].join('.')}' was updated. From ${complexValue(item.value)} to ${complexValue(item.newValue)}`];
+        return [`Property '${[...wayCounter, item.key].join('.')}' was updated. From ${complexValue(item.oldValue)} to ${complexValue(item.newValue)}`];
       case 'unchanged':
         return '';
       default:
