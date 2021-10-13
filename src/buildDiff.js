@@ -14,14 +14,15 @@ const buildDiff = (filePath1, filePath2) => {
     }
     if (_.isPlainObject(filePath1[key]) && _.isPlainObject(filePath2[key])) {
       return {
-        key, value: null, children: buildDiff(filePath1[key], filePath2[key]), type: 'nested',
+        key, children: buildDiff(filePath1[key], filePath2[key]), type: 'nested',
       };
     }
     if (!_.isEqual(filePath1[key], filePath2[key])) {
       return {
         key, oldValue: filePath1[key], newValue: filePath2[key], type: 'changed',
       };
-    } return { key, value: filePath1[key], type: 'unchanged' };
+    }
+    return { key, value: filePath1[key], type: 'unchanged' };
   };
 
   const diff = sortedKeys.map((key) => iter(key));

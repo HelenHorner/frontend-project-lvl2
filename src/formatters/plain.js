@@ -15,16 +15,15 @@ const makePlain = (diff, wayCounter) => {
       case 'changed':
         return [`Property '${[...wayCounter, item.key].join('.')}' was updated. From ${complexValue(item.oldValue)} to ${complexValue(item.newValue)}`];
       case 'unchanged':
-        return '';
+        return [];
       default:
         throw new Error('Error AST');
     }
   };
   const { children } = diff;
-  const strARR = children.map((item) => iter(item));
-  const lines = strARR.filter((line) => line !== '');
+  const strARR = children.flatMap((item) => iter(item));
   return [
-    ...lines,
+    ...strARR,
   ].join('\n');
 };
 
